@@ -204,13 +204,12 @@
       "name": "[parameters('functionAppName')]",
       "location": "[parameters('location')]",
       "sku": {
-        "name": "EP1",
-        "tier": "ElasticPremium",
-        "size": "EP1",
-        "family": "EP",
-        "capacity": 1
+        "name":"Y1",
+        "tier":"Dynamic",
+        "size":"Y1",
+        "family":"Y",
+        "capacity":0
       },
-      "kind": "elastic",
       "properties": {
         "perSiteScaling": false,
         "maximumElasticWorkerCount": 20,
