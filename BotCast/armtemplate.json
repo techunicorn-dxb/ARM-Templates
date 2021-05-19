@@ -425,6 +425,11 @@
               "slotSetting": false
             },
             {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~2",
+              "slotSetting": false
+            },
+            {
               "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
               "value": "[reference(resourceId('microsoft.insights/components/', parameters('installationFunctionAppName')), '2015-05-01').InstrumentationKey]",
               "slotSetting": true
@@ -573,6 +578,11 @@
         "siteConfig": {
           "appSettings": [
             {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~2",
+              "slotSetting": false
+            },
+            {
               "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
               "value": "[reference(resourceId('microsoft.insights/components/', parameters('notificationFunctionAppName')), '2015-05-01').InstrumentationKey]",
               "slotSetting": true
@@ -720,6 +730,11 @@
         "hyperV": false,
         "siteConfig": {
           "appSettings": [
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~2",
+              "slotSetting": false
+            },
             {
               "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
               "value": "[reference(resourceId('microsoft.insights/components/', parameters('dataFunctionAppName')), '2015-05-01').InstrumentationKey]",
