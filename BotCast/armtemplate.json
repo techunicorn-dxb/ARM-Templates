@@ -358,7 +358,7 @@
             },
             {
               "name": "BaseUrl",
-              "value": "[concat('https://', parameters('functionAppName'), '.azurewebsites.net')]",
+              "value": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net')]",
               "slotSetting": false
             },
             {
