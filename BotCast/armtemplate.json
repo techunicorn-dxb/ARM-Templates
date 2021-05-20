@@ -426,7 +426,7 @@
             },
             {
               "name": "FUNCTIONS_EXTENSION_VERSION",
-              "value": "~2",
+              "value": "~3",
               "slotSetting": false
             },
             {
@@ -579,7 +579,7 @@
           "appSettings": [
             {
               "name": "FUNCTIONS_EXTENSION_VERSION",
-              "value": "~2",
+              "value": "~3",
               "slotSetting": false
             },
             {
@@ -732,7 +732,7 @@
           "appSettings": [
             {
               "name": "FUNCTIONS_EXTENSION_VERSION",
-              "value": "~2",
+              "value": "~3",
               "slotSetting": false
             },
             {
