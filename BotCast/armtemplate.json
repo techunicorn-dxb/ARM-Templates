@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-08-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "outputs": {
     "baseUrl": {
@@ -11,14 +11,14 @@
     },
     "userManifest": {
       "type": "string",
-      "value": "[ concat('{ \"$schema\": \"https://developer.microsoft.com/en-us/json-schemas/teams/v1.9/MicrosoftTeams.schema.json\", \"manifestVersion\": \"1.9\", \"version\": \"1.0.1\", \"id\": \"', parameters('userApplicationGuid'), '\", \"packageName\": \"com.techunicorn.teams.botcast\", \"developer\": { \"name\": \"Tech Unicorn\", \"websiteUrl\": \"https://www.cxunicorn.com/\", \"privacyUrl\": \"https://www.cxunicorn.com/privacy-policy.html\", \"termsOfUseUrl\": \"https://www.cxunicorn.com/terms-of-use.html\", \"mpnId\": \"6100626\" }, \"icons\": { \"color\": \"color.png\", \"outline\": \"outline.png\" }, \"name\": { \"short\": \"BotCast\", \"full\": \"BotCast\" }, \"description\": { \"short\": \"Broadcast messages and track engagement with BOTCast\", \"full\": \"BotCast is a solution designed to broadcast messages to multiple teams through engaging chat messages.\nThe application has been designed using a touch UX approach that ensures a higher participation from the team – with a sentiment analysis dashboard to track engagement metrics around each broadcast.\nFeatures:\n✔ Team collaboration and communication\n✔ Higher employee engagement\n✔ Instant announcement via bot notifications\n✔ Tracks announcements and engagements\n✔ Customized messages for various announcement types\" }, \"accentColor\": \"#FFFFFF\", \"staticTabs\": [ { \"entityId\": \"conversations\", \"scopes\": [ \"personal\" ] }, { \"entityId\": \"about\", \"scopes\": [ \"personal\" ] } ], \"bots\": [ { \"botId\": \"', parameters('clientId'), '\", \"scopes\": [ \"personal\" ], \"supportsFiles\": false, \"isNotificationOnly\": true } ], \"permissions\": [ \"identity\", \"messageTeamMembers\" ], \"validDomains\": [ \"', parameters('webAppBotName'), '.azurewebsites.net\" ], \"webApplicationInfo\": { \"id\": \"', parameters('clientId'), '\", \"resource\": \"api://', parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'), '\" } }') ]",
+      "value": "[ concat('{ \"$schema\": \"https://developer.microsoft.com/en-us/json-schemas/teams/v1.9/MicrosoftTeams.schema.json\", \"manifestVersion\": \"1.9\", \"version\": \"1.0.1\", \"id\": \"', parameters('userApplicationGuid'), '\", \"packageName\": \"com.techunicorn.teams.botcast\", \"developer\": { \"name\": \"Tech Unicorn\", \"websiteUrl\": \"https://www.cxunicorn.com/\", \"privacyUrl\": \"https://www.cxunicorn.com/privacy-policy.html\", \"termsOfUseUrl\": \"https://www.cxunicorn.com/terms-of-use.html\", \"mpnId\": \"6100626\" }, \"icons\": { \"color\": \"color.png\", \"outline\": \"outline.png\" }, \"name\": { \"short\": \"', parameters('appDisplayName'), '\", \"full\": \"', parameters('appDisplayName'), '\" }, \"description\": { \"short\": \"Broadcast messages and track engagement with ', parameters('appDisplayName'), '\", \"full\": \"', parameters('appDisplayName'), ' is a solution designed to broadcast messages to multiple teams through engaging chat messages.\nThe application has been designed using a touch UX approach that ensures a higher participation from the team – with a sentiment analysis dashboard to track engagement metrics around each broadcast.\nFeatures:\n✔ Team collaboration and communication\n✔ Higher employee engagement\n✔ Instant announcement via bot notifications\n✔ Tracks announcements and engagements\n✔ Customized messages for various announcement types\" }, \"accentColor\": \"#FFFFFF\", \"staticTabs\": [ { \"entityId\": \"conversations\", \"scopes\": [ \"personal\" ] }, { \"entityId\": \"about\", \"scopes\": [ \"personal\" ] } ], \"bots\": [ { \"botId\": \"', parameters('clientId'), '\", \"scopes\": [ \"personal\" ], \"supportsFiles\": false, \"isNotificationOnly\": true } ], \"permissions\": [ \"identity\", \"messageTeamMembers\" ], \"validDomains\": [ \"', parameters('webAppBotName'), '.azurewebsites.net\" ], \"webApplicationInfo\": { \"id\": \"', parameters('clientId'), '\", \"resource\": \"api://', parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'), '\" } }') ]",
       "metadata": {
         "description": "Base URL of the Web App Bot."
       }
     },
     "adminManifest": {
       "type": "string",
-      "value": "[concat('{ \"$schema\": \"https://developer.microsoft.com/en-us/json-schemas/teams/v1.9/MicrosoftTeams.schema.json\", \"manifestVersion\": \"1.9\", \"version\": \"1.0.1\", \"id\": \"', parameters('adminApplicationGuid'),'\", \"packageName\": \"com.techunicorn.teams.botcast\", \"developer\": { \"name\": \"Tech Unicorn\", \"websiteUrl\": \"https://www.cxunicorn.com/\", \"privacyUrl\": \"https://www.cxunicorn.com/privacy-policy.html\", \"termsOfUseUrl\": \"https://www.cxunicorn.com/terms-of-use.html\", \"mpnId\": \"6100626\" }, \"icons\": { \"color\": \"color.png\", \"outline\": \"outline.png\" }, \"name\": { \"short\": \"BotCast - Admin\", \"full\": \"BotCast - Admin\" }, \"description\": { \"short\": \"Broadcast messages and track engagement with BOTCast\", \"full\": \"BotCast is a solution designed to broadcast messages to multiple teams through engaging chat messages.\nThe application has been designed using a touch UX approach that ensures a higher participation from the team – with a sentiment analysis dashboard to track engagement metrics around each broadcast.\nFeatures:\n✔ Team collaboration and communication\n✔ Higher employee engagement\n✔ Instant announcement via bot notifications\n✔ Tracks announcements and engagements\n✔ Customized messages for various announcement types\" }, \"accentColor\": \"#FFFFFF\", \"staticTabs\": [ { \"entityId\": \"conversations\", \"scopes\": [ \"personal\" ] }, { \"entityId\": \"dashboard\", \"name\": \"Dashboard\", \"contentUrl\": \"https://', parameters('webAppBotName'), '.azurewebsites.net/dashboard\", \"websiteUrl\": \"https://', parameters('webAppBotName'), '.azurewebsites.net/dashboard\", \"scopes\": [ \"personal\" ] }, { \"entityId\": \"about\", \"scopes\": [ \"personal\" ] } ], \"bots\": [ { \"botId\": \"',parameters('clientId'),'\", \"scopes\": [ \"personal\" ], \"supportsFiles\": false, \"isNotificationOnly\": true } ], \"permissions\": [ \"identity\", \"messageTeamMembers\" ], \"validDomains\": [ \"', parameters('webAppBotName'), '.azurewebsites.net\" ], \"webApplicationInfo\": { \"id\": \"',parameters('clientId'),'\", \"resource\": \"api://', parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'),'\" } }')]",
+      "value": "[concat('{ \"$schema\": \"https://developer.microsoft.com/en-us/json-schemas/teams/v1.9/MicrosoftTeams.schema.json\", \"manifestVersion\": \"1.9\", \"version\": \"1.0.1\", \"id\": \"', parameters('adminApplicationGuid'),'\", \"packageName\": \"com.techunicorn.teams.botcast\", \"developer\": { \"name\": \"Tech Unicorn\", \"websiteUrl\": \"https://www.cxunicorn.com/\", \"privacyUrl\": \"https://www.cxunicorn.com/privacy-policy.html\", \"termsOfUseUrl\": \"https://www.cxunicorn.com/terms-of-use.html\", \"mpnId\": \"6100626\" }, \"icons\": { \"color\": \"color.png\", \"outline\": \"outline.png\" }, \"name\": { \"short\": \"', parameters('appDisplayName'), ' - Admin\", \"full\": \"', parameters('appDisplayName'), ' - Admin\" }, \"description\": { \"short\": \"Broadcast messages and track engagement with ', parameters('appDisplayName'), '\", \"full\": \"', parameters('appDisplayName'), ' is a solution designed to broadcast messages to multiple teams through engaging chat messages.\nThe application has been designed using a touch UX approach that ensures a higher participation from the team – with a sentiment analysis dashboard to track engagement metrics around each broadcast.\nFeatures:\n✔ Team collaboration and communication\n✔ Higher employee engagement\n✔ Instant announcement via bot notifications\n✔ Tracks announcements and engagements\n✔ Customized messages for various announcement types\" }, \"accentColor\": \"#FFFFFF\", \"staticTabs\": [ { \"entityId\": \"conversations\", \"scopes\": [ \"personal\" ] }, { \"entityId\": \"dashboard\", \"name\": \"Dashboard\", \"contentUrl\": \"https://', parameters('webAppBotName'), '.azurewebsites.net/dashboard\", \"websiteUrl\": \"https://', parameters('webAppBotName'), '.azurewebsites.net/dashboard\", \"scopes\": [ \"personal\" ] }, { \"entityId\": \"about\", \"scopes\": [ \"personal\" ] } ], \"bots\": [ { \"botId\": \"',parameters('clientId'),'\", \"scopes\": [ \"personal\" ], \"supportsFiles\": false, \"isNotificationOnly\": true } ], \"permissions\": [ \"identity\", \"messageTeamMembers\" ], \"validDomains\": [ \"', parameters('webAppBotName'), '.azurewebsites.net\" ], \"webApplicationInfo\": { \"id\": \"',parameters('clientId'),'\", \"resource\": \"api://', parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'),'\" } }')]",
       "metadata": {
         "description": "Base URL of the Web App Bot."
       }
@@ -104,6 +104,29 @@
         "description": "The name of the Notification Function App resource."
       }
     },
+    "editFunctionAppName": {
+      "defaultValue": "botcasteditfa",
+      "type": "String",
+      "minLength": 1,
+      "metadata": {
+        "description": "The name of the Edit Function App resource."
+      }
+    },
+    "deleteFunctionAppName": {
+      "defaultValue": "botcastdeletefa",
+      "type": "String",
+      "minLength": 1,
+      "metadata": {
+        "description": "The name of the Delete Function App resource."
+      }
+    },
+    "testTeamId": {
+      "defaultValue": "",
+      "type": "String",
+      "metadata": {
+        "description": "ID of the test team (optional)."
+      }
+    },
     "webAppBotName": {
       "defaultValue": "botcastwab",
       "type": "String",
@@ -148,8 +171,8 @@
       },
       "kind": "sdk",
       "properties": {
-        "displayName": "BotCast",
-        "description": "Broadcast messages and track engagement with BOTCast",
+        "displayName": "[parameters('appDisplayName')]",
+        "description": "[concat('Broadcast messages and track engagement with ', parameters('appDisplayName'))]",
         "iconUrl": "[parameters('appIconUrl')]",
         "endpoint": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net/api/messages')]",
         "msaAppId": "[parameters('clientId')]",
@@ -179,6 +202,36 @@
       "type": "microsoft.insights/components",
       "apiVersion": "2020-02-02-preview",
       "name": "[parameters('notificationFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "kind": "web",
+      "properties": {
+        "Application_Type": "web",
+        "Flow_Type": "Redfield",
+        "Request_Source": "AppServiceEnablementCreate",
+        "IngestionMode": "ApplicationInsights",
+        "publicNetworkAccessForIngestion": "Enabled",
+        "publicNetworkAccessForQuery": "Enabled"
+      }
+    },
+    {
+      "type": "microsoft.insights/components",
+      "apiVersion": "2020-02-02-preview",
+      "name": "[parameters('editFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "kind": "web",
+      "properties": {
+        "Application_Type": "web",
+        "Flow_Type": "Redfield",
+        "Request_Source": "AppServiceEnablementCreate",
+        "IngestionMode": "ApplicationInsights",
+        "publicNetworkAccessForIngestion": "Enabled",
+        "publicNetworkAccessForQuery": "Enabled"
+      }
+    },
+    {
+      "type": "microsoft.insights/components",
+      "apiVersion": "2020-02-02-preview",
+      "name": "[parameters('deleteFunctionAppName')]",
       "location": "[parameters('location')]",
       "kind": "web",
       "properties": {
@@ -244,6 +297,52 @@
       "type": "Microsoft.Web/serverfarms",
       "apiVersion": "2018-02-01",
       "name": "[parameters('notificationFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name":"Y1",
+        "tier":"Dynamic",
+        "size":"Y1",
+        "family":"Y",
+        "capacity":0
+      },
+      "properties": {
+        "perSiteScaling": false,
+        "maximumElasticWorkerCount": 20,
+        "isSpot": false,
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2018-02-01",
+      "name": "[parameters('editFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name":"Y1",
+        "tier":"Dynamic",
+        "size":"Y1",
+        "family":"Y",
+        "capacity":0
+      },
+      "properties": {
+        "perSiteScaling": false,
+        "maximumElasticWorkerCount": 20,
+        "isSpot": false,
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2018-02-01",
+      "name": "[parameters('deleteFunctionAppName')]",
       "location": "[parameters('location')]",
       "sku": {
         "name":"Y1",
@@ -376,6 +475,11 @@
             {
               "name": "TeamsAppId",
               "value": "HAS TO BE SET FOR INSTALLATION FUNCTION",
+              "slotSetting": false
+            },
+            {
+              "name": "TestTeam",
+              "value": "[parameters('testTeamId')]",
               "slotSetting": false
             },
             {
@@ -656,37 +760,42 @@
     {
       "type": "Microsoft.Web/sites",
       "apiVersion": "2018-11-01",
-      "name": "[parameters('webAppBotName')]",
+      "name": "[parameters('editFunctionAppName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', parameters('webAppBotName'))]",
+        "[resourceId('Microsoft.Web/serverfarms', parameters('editFunctionAppName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
-        "[resourceId('Microsoft.Insights/components', parameters('webAppBotName'))]"
+        "[resourceId('Microsoft.Insights/components', parameters('editFunctionAppName'))]"
       ],
-      "kind": "app",
+      "kind": "functionapp",
       "properties": {
         "enabled": true,
         "hostNameSslStates": [
           {
-            "name": "[concat(parameters('webAppBotName'), '.azurewebsites.net')]",
+            "name": "[concat(parameters('editFunctionAppName'), '.azurewebsites.net')]",
             "sslState": "Disabled",
             "hostType": "Standard"
           },
           {
-            "name": "[concat(parameters('webAppBotName'), '.scm.azurewebsites.net')]",
+            "name": "[concat(parameters('editFunctionAppName'), '.scm.azurewebsites.net')]",
             "sslState": "Disabled",
             "hostType": "Repository"
           }
         ],
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('webAppBotName'))]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('editFunctionAppName'))]",
         "reserved": false,
         "isXenon": false,
         "hyperV": false,
         "siteConfig": {
           "appSettings": [
             {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~3",
+              "slotSetting": false
+            },
+            {
               "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-              "value": "[reference(resourceId('microsoft.insights/components/', parameters('webAppBotName')), '2015-05-01').InstrumentationKey]",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('editFunctionAppName')), '2015-05-01').InstrumentationKey]",
               "slotSetting": true
             },
             {
@@ -732,6 +841,324 @@
             {
               "name": "AzureWebJobsStorage",
               "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "BaseUrl",
+              "value": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net')]",
+              "slotSetting": false
+            },
+            {
+              "name": "MicrosoftAppId",
+              "value": "[parameters('clientId')]",
+              "slotSetting": true
+            },
+            {
+              "name": "MicrosoftAppPassword",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": true
+            },
+            {
+              "name": "Settings:EnableApprovalFlow",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "Settings:EnableEmails",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "Settings:EnableReactions",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "Settings:EnableReplies",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "Settings:VisibleReplies",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "StorageAccountConnectionString",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "UserId",
+              "value": "[parameters('senderEmail')]",
+              "slotSetting": false
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "14.15.0",
+              "slotSetting": false
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": false,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 1536,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": true,
+        "redundancyMode": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('deleteFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('deleteFunctionAppName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+        "[resourceId('Microsoft.Insights/components', parameters('deleteFunctionAppName'))]"
+      ],
+      "kind": "functionapp",
+      "properties": {
+        "enabled": true,
+        "hostNameSslStates": [
+          {
+            "name": "[concat(parameters('deleteFunctionAppName'), '.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Standard"
+          },
+          {
+            "name": "[concat(parameters('deleteFunctionAppName'), '.scm.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Repository"
+          }
+        ],
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('deleteFunctionAppName'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~3",
+              "slotSetting": false
+            },
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('deleteFunctionAppName')), '2015-05-01').InstrumentationKey]",
+              "slotSetting": true
+            },
+            {
+              "name": "AzureAd:ApplicationIdURI",
+              "value": "[concat('api://',parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'))]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:AppSecret",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:AuthUrl",
+              "value": "/oauth2/v2.0/token",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientId",
+              "value": "[parameters('clientId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientSecret",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:Instance",
+              "value": "https://login.microsoftonline.com/",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:TenantId",
+              "value": "[parameters('tenantId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ValidIssuers",
+              "value": "[concat('https://login.microsoftonline.com/',parameters('tenantId'),'/v2.0,https://sts.windows.net/',parameters('tenantId'),'/')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "BaseUrl",
+              "value": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net')]",
+              "slotSetting": false
+            },
+            {
+              "name": "MicrosoftAppId",
+              "value": "[parameters('clientId')]",
+              "slotSetting": true
+            },
+            {
+              "name": "MicrosoftAppPassword",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": true
+            },
+            {
+              "name": "Settings:EnableApprovalFlow",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "Settings:EnableEmails",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "Settings:EnableReactions",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "Settings:EnableReplies",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "Settings:VisibleReplies",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "StorageAccountConnectionString",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "UserId",
+              "value": "[parameters('senderEmail')]",
+              "slotSetting": false
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "14.15.0",
+              "slotSetting": false
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": false,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 1536,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": true,
+        "redundancyMode": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('webAppBotName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('webAppBotName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+        "[resourceId('Microsoft.Insights/components', parameters('webAppBotName'))]",
+        "[resourceId('Microsoft.Web/sites', parameters('editFunctionAppName'))]",
+        "[resourceId('Microsoft.Web/sites', parameters('deleteFunctionAppName'))]"
+      ],
+      "kind": "app",
+      "properties": {
+        "enabled": true,
+        "hostNameSslStates": [
+          {
+            "name": "[concat(parameters('webAppBotName'), '.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Standard"
+          },
+          {
+            "name": "[concat(parameters('webAppBotName'), '.scm.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Repository"
+          }
+        ],
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('webAppBotName'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "EditFunctionUrl",
+              "value": "[concat('https://', parameters('editFunctionAppName'), '.azurewebsites.net/api/EditFunction')]",
+              "slotSetting": false
+            },
+            {
+              "name": "DeleteFunctionUrl",
+              "value": "[concat('https://', parameters('deleteFunctionAppName'), '.azurewebsites.net/api/DeleteFunction')]",
+              "slotSetting": false
+            },
+            {
+              "name": "EditFunctionKey",
+              "value": "[listkeys(concat(resourceId('Microsoft.Web/sites', parameters('editFunctionAppName')), '/host/default'), '2019-08-01').functionKeys.default]",
+              "slotSetting": true
+            }
+            ,{
+              "name": "DeleteFunctionKey",
+              "value": "[listkeys(concat(resourceId('Microsoft.Web/sites', parameters('deleteFunctionAppName')), '/host/default'), '2019-08-01').functionKeys.default]",
+              "slotSetting": true
+            },
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('webAppBotName')), '2015-05-01').InstrumentationKey]",
+              "slotSetting": true
+            },
+            {
+              "name": "AzureAd:ApplicationIdURI",
+              "value": "[concat('api://',parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'))]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:AppSecret",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:AuthUrl",
+              "value": "/oauth2/v2.0/token",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientId",
+              "value": "[parameters('clientId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientSecret",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:Instance",
+              "value": "https://login.microsoftonline.com/",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:TenantId",
+              "value": "[parameters('tenantId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ValidIssuers",
+              "value": "[concat('https://login.microsoftonline.com/',parameters('tenantId'),'/v2.0,https://sts.windows.net/',parameters('tenantId'),'/')]",
               "slotSetting": false
             },
             {
