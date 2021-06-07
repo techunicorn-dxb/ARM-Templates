@@ -554,31 +554,6 @@
               "slotSetting": true
             },
             {
-              "name": "Settings:EnableApprovalFlow",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableEmails",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableReactions",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableReplies",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:VisibleReplies",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
               "name": "StorageAccountConnectionString",
               "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
               "slotSetting": false
@@ -705,31 +680,6 @@
               "name": "MicrosoftAppPassword",
               "value": "[parameters('clientSecret')]",
               "slotSetting": true
-            },
-            {
-              "name": "Settings:EnableApprovalFlow",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableEmails",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableReactions",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableReplies",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:VisibleReplies",
-              "value": "true",
-              "slotSetting": false
             },
             {
               "name": "StorageAccountConnectionString",
@@ -860,31 +810,6 @@
               "slotSetting": true
             },
             {
-              "name": "Settings:EnableApprovalFlow",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableEmails",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableReactions",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableReplies",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:VisibleReplies",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
               "name": "StorageAccountConnectionString",
               "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
               "slotSetting": false
@@ -1011,31 +936,6 @@
               "name": "MicrosoftAppPassword",
               "value": "[parameters('clientSecret')]",
               "slotSetting": true
-            },
-            {
-              "name": "Settings:EnableApprovalFlow",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableEmails",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableReactions",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:EnableReplies",
-              "value": "true",
-              "slotSetting": false
-            },
-            {
-              "name": "Settings:VisibleReplies",
-              "value": "true",
-              "slotSetting": false
             },
             {
               "name": "StorageAccountConnectionString",
@@ -1199,6 +1099,11 @@
             },
             {
               "name": "Settings:VisibleReplies",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "Settings:EnableSoftDelete",
               "value": "true",
               "slotSetting": false
             },
