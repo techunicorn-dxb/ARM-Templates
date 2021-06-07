@@ -276,11 +276,11 @@
       "name": "[parameters('installationFunctionAppName')]",
       "location": "[parameters('location')]",
       "sku": {
-        "name":"Y1",
-        "tier":"Dynamic",
-        "size":"Y1",
-        "family":"Y",
-        "capacity":0
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
       },
       "properties": {
         "perSiteScaling": false,
@@ -299,11 +299,11 @@
       "name": "[parameters('notificationFunctionAppName')]",
       "location": "[parameters('location')]",
       "sku": {
-        "name":"Y1",
-        "tier":"Dynamic",
-        "size":"Y1",
-        "family":"Y",
-        "capacity":0
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
       },
       "properties": {
         "perSiteScaling": false,
@@ -322,11 +322,11 @@
       "name": "[parameters('editFunctionAppName')]",
       "location": "[parameters('location')]",
       "sku": {
-        "name":"Y1",
-        "tier":"Dynamic",
-        "size":"Y1",
-        "family":"Y",
-        "capacity":0
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
       },
       "properties": {
         "perSiteScaling": false,
@@ -345,11 +345,11 @@
       "name": "[parameters('deleteFunctionAppName')]",
       "location": "[parameters('location')]",
       "sku": {
-        "name":"Y1",
-        "tier":"Dynamic",
-        "size":"Y1",
-        "family":"Y",
-        "capacity":0
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
       },
       "properties": {
         "perSiteScaling": false,
@@ -437,7 +437,8 @@
           ]
         },
         "deleteRetentionPolicy": {
-          "enabled": false
+          "enabled": true,
+          "days": 14
         }
       }
     },
@@ -1110,8 +1111,8 @@
               "name": "EditFunctionKey",
               "value": "[listkeys(concat(resourceId('Microsoft.Web/sites', parameters('editFunctionAppName')), '/host/default'), '2019-08-01').functionKeys.default]",
               "slotSetting": true
-            }
-            ,{
+            },
+            {
               "name": "DeleteFunctionKey",
               "value": "[listkeys(concat(resourceId('Microsoft.Web/sites', parameters('deleteFunctionAppName')), '/host/default'), '2019-08-01').functionKeys.default]",
               "slotSetting": true
