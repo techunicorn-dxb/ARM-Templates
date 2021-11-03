@@ -699,11 +699,6 @@
               "slotSetting": false
             },
             {
-              "name": "BaseUrl",
-              "value": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net')]",
-              "slotSetting": false
-            },
-            {
               "name": "MicrosoftAppId",
               "value": "[parameters('clientId')]",
               "slotSetting": true
@@ -783,53 +778,8 @@
               "slotSetting": true
             },
             {
-              "name": "AzureAd:ApplicationIdURI",
-              "value": "[concat('api://',parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'))]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:AppSecret",
-              "value": "[parameters('clientSecret')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:AuthUrl",
-              "value": "/oauth2/v2.0/token",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ClientId",
-              "value": "[parameters('clientId')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ClientSecret",
-              "value": "[parameters('clientSecret')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:Instance",
-              "value": "https://login.microsoftonline.com/",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:TenantId",
-              "value": "[parameters('tenantId')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ValidIssuers",
-              "value": "[concat('https://login.microsoftonline.com/',parameters('tenantId'),'/v2.0,https://sts.windows.net/',parameters('tenantId'),'/')]",
-              "slotSetting": false
-            },
-            {
               "name": "AzureWebJobsStorage",
               "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
-              "slotSetting": false
-            },
-            {
-              "name": "BaseUrl",
-              "value": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net')]",
               "slotSetting": false
             },
             {
@@ -841,6 +791,11 @@
               "name": "MicrosoftAppPassword",
               "value": "[parameters('clientSecret')]",
               "slotSetting": true
+            },
+            {
+              "name": "TenantId",
+              "value": "[parameters('tenantId')]",
+              "slotSetting": false
             },
             {
               "name": "StorageAccountConnectionString",
@@ -922,53 +877,8 @@
               "slotSetting": true
             },
             {
-              "name": "AzureAd:ApplicationIdURI",
-              "value": "[concat('api://',parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'))]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:AppSecret",
-              "value": "[parameters('clientSecret')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:AuthUrl",
-              "value": "/oauth2/v2.0/token",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ClientId",
-              "value": "[parameters('clientId')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ClientSecret",
-              "value": "[parameters('clientSecret')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:Instance",
-              "value": "https://login.microsoftonline.com/",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:TenantId",
-              "value": "[parameters('tenantId')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ValidIssuers",
-              "value": "[concat('https://login.microsoftonline.com/',parameters('tenantId'),'/v2.0,https://sts.windows.net/',parameters('tenantId'),'/')]",
-              "slotSetting": false
-            },
-            {
               "name": "AzureWebJobsStorage",
               "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
-              "slotSetting": false
-            },
-            {
-              "name": "BaseUrl",
-              "value": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net')]",
               "slotSetting": false
             },
             {
@@ -980,6 +890,11 @@
               "name": "MicrosoftAppPassword",
               "value": "[parameters('clientSecret')]",
               "slotSetting": true
+            },
+            {
+              "name": "TenantId",
+              "value": "[parameters('tenantId')]",
+              "slotSetting": false
             },
             {
               "name": "StorageAccountConnectionString",
@@ -1066,46 +981,6 @@
               "slotSetting": true
             },
             {
-              "name": "AzureAd:ApplicationIdURI",
-              "value": "[concat('api://',parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'))]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:AppSecret",
-              "value": "[parameters('clientSecret')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:AuthUrl",
-              "value": "/oauth2/v2.0/token",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ClientId",
-              "value": "[parameters('clientId')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ClientSecret",
-              "value": "[parameters('clientSecret')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:Instance",
-              "value": "https://login.microsoftonline.com/",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:TenantId",
-              "value": "[parameters('tenantId')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ValidIssuers",
-              "value": "[concat('https://login.microsoftonline.com/',parameters('tenantId'),'/v2.0,https://sts.windows.net/',parameters('tenantId'),'/')]",
-              "slotSetting": false
-            },
-            {
               "name": "AzureWebJobsStorage",
               "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
               "slotSetting": false
@@ -1126,6 +1001,11 @@
               "slotSetting": true
             },
             {
+              "name": "TenantId",
+              "value": "[parameters('tenantId')]",
+              "slotSetting": false
+            },
+            {
               "name": "StorageAccountConnectionString",
               "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
               "slotSetting": false
@@ -1138,6 +1018,11 @@
             {
               "name": "MaxNumberOfAttempts",
               "value": 1,
+              "slotSetting": true
+            },
+            {
+              "name": "SendRetryDelayNumberOfSeconds",
+              "value": 120,
               "slotSetting": true
             },
             {
@@ -1447,11 +1332,6 @@
             {
               "name": "AzureWebJobsStorage",
               "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
-              "slotSetting": false
-            },
-            {
-              "name": "BaseUrl",
-              "value": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net')]",
               "slotSetting": false
             },
             {
