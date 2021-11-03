@@ -104,12 +104,36 @@
         "description": "The name of the Notification Function App resource."
       }
     },
+    "emailNotificationFunctionAppName": {
+      "defaultValue": "botcastemailnotificationfa",
+      "type": "String",
+      "minLength": 1,
+      "metadata": {
+        "description": "The name of the Email Notification Function App resource."
+      }
+    },
+    "teamsNotificationFunctionAppName": {
+      "defaultValue": "botcastteamsnotificationfa",
+      "type": "String",
+      "minLength": 1,
+      "metadata": {
+        "description": "The name of the Teams Notification Function App resource."
+      }
+    },
     "editFunctionAppName": {
       "defaultValue": "botcasteditfa",
       "type": "String",
       "minLength": 1,
       "metadata": {
         "description": "The name of the Edit Function App resource."
+      }
+    },
+    "cleanupFunctionAppName": {
+      "defaultValue": "botcastcleanupfa",
+      "type": "String",
+      "minLength": 1,
+      "metadata": {
+        "description": "The name of the Clean Up Function App resource."
       }
     },
     "deleteFunctionAppName": {
@@ -158,9 +182,31 @@
       "metadata": {
         "description": "Guid used to identify user teams application."
       }
+    },
+    "serviceBusNamespaceName": {
+      "defaultValue": "botcastsb",
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Service Bus namespace"
+      }
     }
   },
+  "variables": {
+    "defaultSASKeyName": "RootManageSharedAccessKey",
+    "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]",
+    "sbVersion": "2017-04-01"
+  },
   "resources": [
+    {
+      "apiVersion": "2017-04-01",
+      "name": "[parameters('serviceBusNamespaceName')]",
+      "type": "Microsoft.ServiceBus/Namespaces",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {}
+    },
     {
       "type": "Microsoft.BotService/botServices",
       "apiVersion": "2020-06-02",
@@ -216,7 +262,52 @@
     {
       "type": "microsoft.insights/components",
       "apiVersion": "2020-02-02-preview",
+      "name": "[parameters('emailNotificationFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "kind": "web",
+      "properties": {
+        "Application_Type": "web",
+        "Flow_Type": "Redfield",
+        "Request_Source": "AppServiceEnablementCreate",
+        "IngestionMode": "ApplicationInsights",
+        "publicNetworkAccessForIngestion": "Enabled",
+        "publicNetworkAccessForQuery": "Enabled"
+      }
+    },
+    {
+      "type": "microsoft.insights/components",
+      "apiVersion": "2020-02-02-preview",
+      "name": "[parameters('teamsNotificationFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "kind": "web",
+      "properties": {
+        "Application_Type": "web",
+        "Flow_Type": "Redfield",
+        "Request_Source": "AppServiceEnablementCreate",
+        "IngestionMode": "ApplicationInsights",
+        "publicNetworkAccessForIngestion": "Enabled",
+        "publicNetworkAccessForQuery": "Enabled"
+      }
+    },
+    {
+      "type": "microsoft.insights/components",
+      "apiVersion": "2020-02-02-preview",
       "name": "[parameters('editFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "kind": "web",
+      "properties": {
+        "Application_Type": "web",
+        "Flow_Type": "Redfield",
+        "Request_Source": "AppServiceEnablementCreate",
+        "IngestionMode": "ApplicationInsights",
+        "publicNetworkAccessForIngestion": "Enabled",
+        "publicNetworkAccessForQuery": "Enabled"
+      }
+    },
+    {
+      "type": "microsoft.insights/components",
+      "apiVersion": "2020-02-02-preview",
+      "name": "[parameters('cleanupFunctionAppName')]",
       "location": "[parameters('location')]",
       "kind": "web",
       "properties": {
@@ -319,7 +410,76 @@
     {
       "type": "Microsoft.Web/serverfarms",
       "apiVersion": "2018-02-01",
+      "name": "[parameters('emailNotificationFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
+      },
+      "properties": {
+        "perSiteScaling": false,
+        "maximumElasticWorkerCount": 20,
+        "isSpot": false,
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2018-02-01",
+      "name": "[parameters('teamsNotificationFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
+      },
+      "properties": {
+        "perSiteScaling": false,
+        "maximumElasticWorkerCount": 20,
+        "isSpot": false,
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2018-02-01",
       "name": "[parameters('editFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Y1",
+        "tier": "Dynamic",
+        "size": "Y1",
+        "family": "Y",
+        "capacity": 0
+      },
+      "properties": {
+        "perSiteScaling": false,
+        "maximumElasticWorkerCount": 20,
+        "isSpot": false,
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2018-02-01",
+      "name": "[parameters('cleanupFunctionAppName')]",
       "location": "[parameters('location')]",
       "sku": {
         "name": "Y1",
@@ -368,9 +528,9 @@
       "name": "[parameters('webAppBotName')]",
       "location": "[parameters('location')]",
       "sku": {
-        "name": "S1",
+        "name": "S2",
         "tier": "Standard",
-        "size": "S1",
+        "size": "S2",
         "family": "S",
         "capacity": 1
       },
@@ -559,14 +719,14 @@
               "slotSetting": false
             },
             {
-              "name": "UserId",
-              "value": "[parameters('senderEmail')]",
-              "slotSetting": false
-            },
-            {
               "name": "WEBSITE_NODE_DEFAULT_VERSION",
               "value": "14.15.0",
               "slotSetting": false
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
             }
           ]
         },
@@ -586,6 +746,7 @@
       "name": "[parameters('notificationFunctionAppName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
+        "[resourceId('Microsoft.ServiceBus/Namespaces', parameters('serviceBusNamespaceName'))]",
         "[resourceId('Microsoft.Web/serverfarms', parameters('notificationFunctionAppName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
         "[resourceId('Microsoft.Insights/components', parameters('notificationFunctionAppName'))]"
@@ -687,13 +848,306 @@
               "slotSetting": false
             },
             {
-              "name": "UserId",
-              "value": "[parameters('senderEmail')]",
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "14.15.0",
+              "slotSetting": false
+            },
+            {
+              "name": "MaxNumberOfAttempts",
+              "value": 1,
+              "slotSetting": true
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            },
+            {
+              "name": "ServiceBusConnection",
+              "value": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryConnectionString]",
+              "slotSetting": false
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": false,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 1536,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false,
+        "redundancyMode": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('emailNotificationFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ServiceBus/Namespaces', parameters('serviceBusNamespaceName'))]",
+        "[resourceId('Microsoft.Web/serverfarms', parameters('emailNotificationFunctionAppName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+        "[resourceId('Microsoft.Insights/components', parameters('emailNotificationFunctionAppName'))]"
+      ],
+      "kind": "functionapp",
+      "properties": {
+        "enabled": true,
+        "hostNameSslStates": [
+          {
+            "name": "[concat(parameters('emailNotificationFunctionAppName'), '.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Standard"
+          },
+          {
+            "name": "[concat(parameters('emailNotificationFunctionAppName'), '.scm.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Repository"
+          }
+        ],
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('emailNotificationFunctionAppName'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~3",
+              "slotSetting": false
+            },
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('emailNotificationFunctionAppName')), '2015-05-01').InstrumentationKey]",
+              "slotSetting": true
+            },
+            {
+              "name": "AzureAd:ApplicationIdURI",
+              "value": "[concat('api://',parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'))]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:AppSecret",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:AuthUrl",
+              "value": "/oauth2/v2.0/token",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientId",
+              "value": "[parameters('clientId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientSecret",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:Instance",
+              "value": "https://login.microsoftonline.com/",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:TenantId",
+              "value": "[parameters('tenantId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ValidIssuers",
+              "value": "[concat('https://login.microsoftonline.com/',parameters('tenantId'),'/v2.0,https://sts.windows.net/',parameters('tenantId'),'/')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "BaseUrl",
+              "value": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net')]",
+              "slotSetting": false
+            },
+            {
+              "name": "MicrosoftAppId",
+              "value": "[parameters('clientId')]",
+              "slotSetting": true
+            },
+            {
+              "name": "MicrosoftAppPassword",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": true
+            },
+            {
+              "name": "StorageAccountConnectionString",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
               "slotSetting": false
             },
             {
               "name": "WEBSITE_NODE_DEFAULT_VERSION",
               "value": "14.15.0",
+              "slotSetting": false
+            },
+            {
+              "name": "MaxNumberOfAttempts",
+              "value": 1,
+              "slotSetting": true
+            },
+            {
+              "name": "SenderEmailId",
+              "value": "[parameters('senderEmail')]",
+              "slotSetting": true
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            },
+            {
+              "name": "ServiceBusConnection",
+              "value": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryConnectionString]",
+              "slotSetting": false
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": false,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 1536,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false,
+        "redundancyMode": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('teamsNotificationFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ServiceBus/Namespaces', parameters('serviceBusNamespaceName'))]",
+        "[resourceId('Microsoft.Web/serverfarms', parameters('teamsNotificationFunctionAppName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+        "[resourceId('Microsoft.Insights/components', parameters('teamsNotificationFunctionAppName'))]"
+      ],
+      "kind": "functionapp",
+      "properties": {
+        "enabled": true,
+        "hostNameSslStates": [
+          {
+            "name": "[concat(parameters('teamsNotificationFunctionAppName'), '.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Standard"
+          },
+          {
+            "name": "[concat(parameters('teamsNotificationFunctionAppName'), '.scm.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Repository"
+          }
+        ],
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('teamsNotificationFunctionAppName'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~3",
+              "slotSetting": false
+            },
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('teamsNotificationFunctionAppName')), '2015-05-01').InstrumentationKey]",
+              "slotSetting": true
+            },
+            {
+              "name": "AzureAd:ApplicationIdURI",
+              "value": "[concat('api://',parameters('webAppBotName'), '.azurewebsites.net/', parameters('clientId'))]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:AppSecret",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:AuthUrl",
+              "value": "/oauth2/v2.0/token",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientId",
+              "value": "[parameters('clientId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientSecret",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:Instance",
+              "value": "https://login.microsoftonline.com/",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:TenantId",
+              "value": "[parameters('tenantId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ValidIssuers",
+              "value": "[concat('https://login.microsoftonline.com/',parameters('tenantId'),'/v2.0,https://sts.windows.net/',parameters('tenantId'),'/')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "BaseUrl",
+              "value": "[concat('https://', parameters('webAppBotName'), '.azurewebsites.net')]",
+              "slotSetting": false
+            },
+            {
+              "name": "MicrosoftAppId",
+              "value": "[parameters('clientId')]",
+              "slotSetting": true
+            },
+            {
+              "name": "MicrosoftAppPassword",
+              "value": "[parameters('clientSecret')]",
+              "slotSetting": true
+            },
+            {
+              "name": "StorageAccountConnectionString",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "14.15.0",
+              "slotSetting": false
+            },
+            {
+              "name": "MaxNumberOfAttempts",
+              "value": 1,
+              "slotSetting": true
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            },
+            {
+              "name": "ServiceBusConnection",
+              "value": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryConnectionString]",
               "slotSetting": false
             }
           ]
@@ -815,8 +1269,81 @@
               "slotSetting": false
             },
             {
-              "name": "UserId",
-              "value": "[parameters('senderEmail')]",
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "14.15.0",
+              "slotSetting": false
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": false,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 1536,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": true,
+        "redundancyMode": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('cleanupFunctionAppName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('cleanupFunctionAppName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+        "[resourceId('Microsoft.Insights/components', parameters('cleanupFunctionAppName'))]"
+      ],
+      "kind": "functionapp",
+      "properties": {
+        "enabled": true,
+        "hostNameSslStates": [
+          {
+            "name": "[concat(parameters('cleanupFunctionAppName'), '.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Standard"
+          },
+          {
+            "name": "[concat(parameters('cleanupFunctionAppName'), '.scm.azurewebsites.net')]",
+            "sslState": "Disabled",
+            "hostType": "Repository"
+          }
+        ],
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('cleanupFunctionAppName'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~3",
+              "slotSetting": false
+            },
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('cleanupFunctionAppName')), '2015-05-01').InstrumentationKey]",
+              "slotSetting": true
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "StorageAccountConnectionString",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2015-05-01-preview').key1)]",
               "slotSetting": false
             },
             {
@@ -943,14 +1470,14 @@
               "slotSetting": false
             },
             {
-              "name": "UserId",
-              "value": "[parameters('senderEmail')]",
-              "slotSetting": false
-            },
-            {
               "name": "WEBSITE_NODE_DEFAULT_VERSION",
               "value": "14.15.0",
               "slotSetting": false
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
             }
           ]
         },
@@ -1113,14 +1640,14 @@
               "slotSetting": false
             },
             {
-              "name": "UserId",
-              "value": "[parameters('senderEmail')]",
-              "slotSetting": false
-            },
-            {
               "name": "WEBSITE_NODE_DEFAULT_VERSION",
               "value": "14.15.0",
               "slotSetting": false
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
             }
           ]
         },
