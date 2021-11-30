@@ -1,0 +1,465 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "AzureAdB2C:Domain": {
+      "type": "string",
+      "defaultValue": "techunicornb2ctesting.onmicrosoft.com - replace"
+    },
+    "AzureAdB2C:ClientId": {
+      "type": "string",
+      "defaultValue": "34e0af06-ad6a-4585-9629-d9c498cf753d - replace"
+    },
+    "AzureAdB2C:ClientSecret": {
+      "type": "string",
+      "defaultValue": "Ne5D.99~Ed-X9-.j~MlbnD5OF7_YFSVE5m - replace"
+    },
+    "AzureAdB2C:TenantId": {
+      "type": "string",
+      "defaultValue": "5177b759-1781-433f-91f7-42a424928ef2 - replace"
+    },
+    "AzureAdB2C:AllowWebApiToBeAuthorizedByACL": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "AzureAd:Domain": {
+      "type": "string",
+      "defaultValue": "devunicorn.onmicrosoft.com - replace"
+    },
+    "AzureAd:ClientId": {
+      "type": "string",
+      "defaultValue": "a4718466-eb15-4e3a-8543-c3712fe93e2b - replace"
+    },
+    "AzureAd:ClientSecret": {
+      "type": "string",
+      "defaultValue": "Cg90H5Brg~.-xi2Qr7o_KU6jaNOMbaZ6bp - replace"
+    },
+    "AzureAd:TenantId": {
+      "type": "string",
+      "defaultValue": "a264f13b-3b8d-4bee-a4a6-06546dadfe7c - replace"
+    },
+    "AzureAd:ObjectId": {
+      "type": "string",
+      "defaultValue": "40973eda-3100-4c96-860a-034ab8f21139 - replace"
+    },
+    "SenderUpn": {
+      "type": "string",
+      "defaultValue": "dev_2@techunicorn.onmicrosoft.com - replace"
+    },
+    "SenderPassword": {
+      "type": "securestring",
+      "defaultValue": "some password - replace"
+    },
+    "RedirectAppManifestId": {
+      "defaultValue": "[newGuid()]",
+      "type": "string"
+    },
+    "RedirectAppEntityId": {
+      "defaultValue": "redirectapp",
+      "type": "string"
+    },
+    "commonResourcePrefix": {
+      "type": "string",
+      "defaultValue": "museumtour",
+      "metadata": {
+        "description": "Common app service resource name."
+      }
+    },
+    "commonResourceLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    },
+    "liveTourDisplayName": {
+      "type": "string",
+      "defaultValue": "Live Tour",
+      "minLength": 1,
+      "metadata": {
+        "description": "The live tour app display name."
+      }
+    },
+    "liveTourDescription": {
+      "type": "string",
+      "defaultValue": "Live tour app is designed on Microsoft Teams to smoothen the flow of event creation and event management. The Events created by the user gets reflected in the public site and public users can easily see the details of the event and register with their email id. Admin has the provision to manage events and add users.",
+      "minLength": 1,
+      "metadata": {
+        "description": "The live tour app description."
+      }
+    },
+    "liveTourResourcePrefix": {
+      "type": "string",
+      "defaultValue": "livetour",
+      "metadata": {
+        "description": "The live tour app resource name prefix."
+      }
+    },
+    "commonResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "The resource group used for live tour resources."
+      }
+    },
+    "commonSubscriptionId":{
+      "type": "string",
+      "defaultValue": "[subscription().id]"
+    }
+  },
+  "variables": {
+    "storageAccountName": "[concat(parameters('commonResourcePrefix'), 'sa')]",
+    "commonEmpBackEnd": "[concat(parameters('commonResourcePrefix'), 'empbe')]",
+    "commonConBackEnd": "[concat(parameters('commonResourcePrefix'), 'conbe')]",
+    "liveTourEmpFrontEnd": "[concat(parameters('liveTourResourcePrefix'), 'empfe')]",
+    "liveTourConFrontEnd": "[concat(parameters('liveTourResourcePrefix'), 'confe')]",
+    "liveTourCleanUpFunction": "[concat(parameters('liveTourResourcePrefix'), 'clefa')]",
+    "liveTourTransferFunction": "[concat(parameters('liveTourResourcePrefix'), 'trafa')]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-05-01",
+      "name": "[variables('liveTourCleanUpFunction')]",
+      "type": "Microsoft.Insights/components",
+      "location": "[parameters('commonResourceLocation')]",
+      "kind": "web",
+      "properties": {
+        "Application_Type": "web",
+        "Request_Source": "rest"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[variables('liveTourCleanUpFunction')]",
+      "location": "[parameters('commonResourceLocation')]",
+      "dependsOn": [
+      ],
+      "kind": "functionapp",
+      "properties": {
+        "enabled": true,
+        "serverFarmId": "[resourceId(parameters('commonResourceGroup'), 'Microsoft.Web/serverfarms', parameters('commonResourcePrefix'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~3",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId(parameters('commonResourceGroup'), 'Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "StorageAccountConnectionString",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId(parameters('commonResourceGroup'), 'Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:Domain",
+              "value": "[parameters('AzureAd:Domain')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientId",
+              "value": "[parameters('AzureAd:ClientId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientSecret",
+              "value": "[parameters('AzureAd:ClientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:TenantId",
+              "value": "[parameters('AzureAd:TenantId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ObjectId",
+              "value": "[parameters('AzureAd:ObjectId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ApplicationIdURI",
+              "value": "[concat('api://',variables('commonEmpBackEnd'), '.azurewebsites.net/', parameters('AzureAd:ClientId'))]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ValidIssuers",
+              "value": "[concat('https://login.microsoftonline.com/',parameters('AzureAd:TenantId'),'/v2.0,https://sts.windows.net/',parameters('AzureAd:TenantId'),'/')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:Instance",
+              "value": "https://login.microsoftonline.com/",
+              "slotSetting": false
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "14.15.0",
+              "slotSetting": false
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": false,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 1536,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false,
+        "redundancyMode": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[variables('liveTourTransferFunction')]",
+      "location": "[parameters('commonResourceLocation')]",
+      "dependsOn": [
+      ],
+      "kind": "functionapp",
+      "properties": {
+        "enabled": true,
+        "serverFarmId": "[resourceId(parameters('commonResourceGroup'), 'Microsoft.Web/serverfarms', parameters('commonResourcePrefix'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~3",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId(parameters('commonResourceGroup'), 'Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "StorageAccountConnectionString",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId(parameters('commonResourceGroup'), 'Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2015-05-01-preview').key1)]",
+              "slotSetting": false
+            },
+            {
+              "name": "RedirectAppEntityId",
+              "value": "[parameters('RedirectAppEntityId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "RedirectAppManifestId",
+              "value": "[parameters('RedirectAppManifestId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "SenderUpn",
+              "value": "[parameters('SenderUpn')]",
+              "slotSetting": false
+            },
+            {
+              "name": "SenderPassword",
+              "value": "[parameters('SenderPassword')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAdB2C:Domain",
+              "value": "[parameters('AzureAdB2C:Domain')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAdB2C:ClientId",
+              "value": "[parameters('AzureAdB2C:ClientId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAdB2C:ClientSecret",
+              "value": "[parameters('AzureAdB2C:ClientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAdB2C:TenantId",
+              "value": "[parameters('AzureAdB2C:TenantId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAdB2C:AllowWebApiToBeAuthorizedByACL",
+              "value": "true",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:Domain",
+              "value": "[parameters('AzureAd:Domain')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientId",
+              "value": "[parameters('AzureAd:ClientId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ClientSecret",
+              "value": "[parameters('AzureAd:ClientSecret')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:TenantId",
+              "value": "[parameters('AzureAd:TenantId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ObjectId",
+              "value": "[parameters('AzureAd:ObjectId')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ApplicationIdURI",
+              "value": "[concat('api://',variables('commonEmpBackEnd'), '.azurewebsites.net/', parameters('AzureAd:ClientId'))]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:ValidIssuers",
+              "value": "[concat('https://login.microsoftonline.com/',parameters('AzureAd:TenantId'),'/v2.0,https://sts.windows.net/',parameters('AzureAd:TenantId'),'/')]",
+              "slotSetting": false
+            },
+            {
+              "name": "AzureAd:Instance",
+              "value": "https://login.microsoftonline.com/",
+              "slotSetting": false
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "14.15.0",
+              "slotSetting": false
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": false,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 1536,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false,
+        "redundancyMode": "None"
+      }
+    },
+    {
+      "apiVersion": "2015-05-01",
+      "name": "[variables('liveTourEmpFrontEnd')]",
+      "type": "Microsoft.Insights/components",
+      "location": "[parameters('commonResourceLocation')]",
+      "kind": "web",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('liveTourEmpFrontEnd'))]": "Resource"
+      },
+      "properties": {
+        "Application_Type": "web",
+        "Request_Source": "rest"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[variables('liveTourEmpFrontEnd')]",
+      "location": "[parameters('commonResourceLocation')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/components', variables('liveTourEmpFrontEnd'))]"
+      ],
+      "kind": "app",
+      "properties": {
+        "enabled": true,
+        "serverFarmId": "[resourceId(parameters('commonResourceGroup'), 'Microsoft.Web/serverfarms', parameters('commonResourcePrefix'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('Microsoft.Insights/components/', variables('liveTourEmpFrontEnd')), '2015-05-01').InstrumentationKey]",
+              "slotSetting": true
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": true,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 0,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false,
+        "redundancyMode": "None"
+      }
+    },
+    {
+      "apiVersion": "2015-05-01",
+      "name": "[variables('liveTourConFrontEnd')]",
+      "type": "Microsoft.Insights/components",
+      "location": "[parameters('commonResourceLocation')]",
+      "kind": "web",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('liveTourConFrontEnd'))]": "Resource"
+      },
+      "properties": {
+        "Application_Type": "web",
+        "Request_Source": "rest"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[variables('liveTourConFrontEnd')]",
+      "location": "[parameters('commonResourceLocation')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/components', variables('liveTourConFrontEnd'))]"
+      ],
+      "kind": "app",
+      "properties": {
+        "enabled": true,
+        "serverFarmId": "[resourceId(parameters('commonResourceGroup'), 'Microsoft.Web/serverfarms', parameters('commonResourcePrefix'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('Microsoft.Insights/components/', variables('liveTourConFrontEnd')), '2015-05-01').InstrumentationKey]",
+              "slotSetting": true
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": true,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 0,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false,
+        "redundancyMode": "None"
+      }
+    }
+  ]
+}

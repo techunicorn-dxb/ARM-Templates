@@ -1,0 +1,183 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "Translation:Key": {
+      "type": "string",
+      "defaultValue": "234b857f078f471991e84a3a28bfc96a - replace"
+    },
+    "Translation:Endpoint": {
+      "type": "string",
+      "defaultValue": "https://api.cognitive.microsofttranslator.com/"
+    },
+    "Translation:Location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    },
+    "EventManagerAppRoleId": {
+      "type": "string",
+      "defaultValue": "bfd4c306-7ee0-4755-bde2-285c934d567d2 - replace"
+    },
+    "commonResourcePrefix": {
+      "type": "string",
+      "defaultValue": "museumtour",
+      "metadata": {
+        "description": "Common app service resource name."
+      }
+    },
+    "commonResourceLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    },
+    "360TourDisplayName": {
+      "type": "string",
+      "defaultValue": "360 Tour",
+      "minLength": 1,
+      "metadata": {
+        "description": "The 360 tour app display name."
+      }
+    },
+    "360TourDescription": {
+      "type": "string",
+      "defaultValue": "temp value.",
+      "minLength": 1,
+      "metadata": {
+        "description": "The 360 tour app description."
+      }
+    },
+    "360TourResourcePrefix": {
+      "type": "string",
+      "defaultValue": "360tour",
+      "metadata": {
+        "description": "The 360 tour app resource name prefix."
+      }
+    },
+    "commonResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "The resource group used for live tour resources."
+      }
+    },
+    "commonSubscriptionId":{
+      "type": "string",
+      "defaultValue": "[subscription().id]"
+    }
+  },
+  "variables": {
+    "storageAccountName": "[concat(parameters('commonResourcePrefix'), 'sa')]",
+    "commonEmpBackEnd": "[concat(parameters('commonResourcePrefix'), 'empbe')]",
+    "commonConBackEnd": "[concat(parameters('commonResourcePrefix'), 'conbe')]",
+    "360TourEmpFrontEnd": "[concat(parameters('360TourResourcePrefix'), 'empfe')]",
+    "360TourConFrontEnd": "[concat(parameters('360TourResourcePrefix'), 'confe')]"
+  },
+  "resources": [
+    
+    {
+      "apiVersion": "2015-05-01",
+      "name": "[variables('360TourEmpFrontEnd')]",
+      "type": "Microsoft.Insights/components",
+      "location": "[parameters('commonResourceLocation')]",
+      "kind": "web",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('360TourEmpFrontEnd'))]": "Resource"
+      },
+      "properties": {
+        "Application_Type": "web",
+        "Request_Source": "rest"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[variables('360TourEmpFrontEnd')]",
+      "location": "[parameters('commonResourceLocation')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/components', variables('360TourEmpFrontEnd'))]"
+      ],
+      "kind": "app",
+      "properties": {
+        "enabled": true,
+        "serverFarmId": "[resourceId(parameters('commonResourceGroup'), 'Microsoft.Web/serverfarms', parameters('commonResourcePrefix'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('Microsoft.Insights/components/', variables('360TourEmpFrontEnd')), '2015-05-01').InstrumentationKey]",
+              "slotSetting": true
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": true,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 0,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false,
+        "redundancyMode": "None"
+      }
+    },
+    {
+      "apiVersion": "2015-05-01",
+      "name": "[variables('360TourConFrontEnd')]",
+      "type": "Microsoft.Insights/components",
+      "location": "[parameters('commonResourceLocation')]",
+      "kind": "web",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('360TourConFrontEnd'))]": "Resource"
+      },
+      "properties": {
+        "Application_Type": "web",
+        "Request_Source": "rest"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[variables('360TourConFrontEnd')]",
+      "location": "[parameters('commonResourceLocation')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/components', variables('360TourConFrontEnd'))]"
+      ],
+      "kind": "app",
+      "properties": {
+        "enabled": true,
+        "serverFarmId": "[resourceId(parameters('commonResourceGroup'), 'Microsoft.Web/serverfarms', parameters('commonResourcePrefix'))]",
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('Microsoft.Insights/components/', variables('360TourConFrontEnd')), '2015-05-01').InstrumentationKey]",
+              "slotSetting": true
+            },
+            {
+              "name": "Logging:LogLevel:Default",
+              "value": "Warning",
+              "slotSetting": true
+            }
+          ]
+        },
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": true,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 0,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false,
+        "redundancyMode": "None"
+      }
+    }
+  
+  ]
+}
