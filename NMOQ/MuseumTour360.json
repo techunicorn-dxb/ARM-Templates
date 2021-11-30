@@ -37,14 +37,6 @@
         "description": "The 360 tour app display name."
       }
     },
-    "360TourDescription": {
-      "type": "string",
-      "defaultValue": "temp value.",
-      "minLength": 1,
-      "metadata": {
-        "description": "The 360 tour app description."
-      }
-    },
     "360TourResourcePrefix": {
       "type": "string",
       "defaultValue": "360tour",

@@ -77,14 +77,6 @@
         "description": "The live tour app display name."
       }
     },
-    "liveTourDescription": {
-      "type": "string",
-      "defaultValue": "Live tour app is designed on Microsoft Teams to smoothen the flow of event creation and event management. The Events created by the user gets reflected in the public site and public users can easily see the details of the event and register with their email id. Admin has the provision to manage events and add users.",
-      "minLength": 1,
-      "metadata": {
-        "description": "The live tour app description."
-      }
-    },
     "liveTourResourcePrefix": {
       "type": "string",
       "defaultValue": "livetour",
@@ -170,7 +162,6 @@
               "value": "[parameters('AzureAd:ClientSecret')]",
               "slotSetting": false
             },  
-            },
             {
               "name": "RedirectAppManifestId",
               "value": "[parameters('RedirectAppManifestId')]",
