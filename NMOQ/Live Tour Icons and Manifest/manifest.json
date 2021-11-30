@@ -1,0 +1,55 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.11/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.11",
+    "version": "1.0.0",
+    "id": "53792e4d-bfd0-40f8-a301-3a51be714c9c",
+    "packageName": "com.techunicorn.livetour",
+    "developer": {
+        "name": "Tech Unicorn",
+        "websiteUrl": "https://www.cxunicorn.com/",
+        "privacyUrl": "https://www.cxunicorn.com/privacy-policy.html",
+        "termsOfUseUrl": "https://www.cxunicorn.com/terms-of-use.html",
+        "mpnId": "6100626"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "Live Tour",
+        "full": "Live Tour"
+    },
+    "description": {
+        "short": "Live tour app is designed to smoothen the flow of event creation and management.",
+        "full": "Live tour app is designed on Microsoft Teams to smoothen the flow of event creation and event management. The Events created by the user gets reflected in the public site and public users can easily see the details of the event and register with their email id. Admin has the provision to manage events and add users."
+    },
+    "accentColor": "#FFFFFF",
+    "staticTabs": [
+        {
+            "entityId": "museumtour",
+            "name": "Live Tour",
+            "contentUrl": "https://livetourempfe.azurewebsites.net",
+            "websiteUrl": "https://livetourempfe.azurewebsites.net",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "about",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "livetourempfe.azurewebsites.net"
+    ],
+    "webApplicationInfo": {
+        "id": "c1890e03-2770-4502-9080-5923ea8af030",
+        "resource": "api://livetourempfe.azurewebsites.net/c1890e03-2770-4502-9080-5923ea8af030"
+    }
+}

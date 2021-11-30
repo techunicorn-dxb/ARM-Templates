@@ -1,0 +1,55 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.11/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.11",
+    "version": "1.0.0",
+    "id": "ecce2115-b636-43aa-a2ea-32ea70c44723",
+    "packageName": "com.techunicorn.360tour",
+    "developer": {
+        "name": "Tech Unicorn",
+        "websiteUrl": "https://www.cxunicorn.com/",
+        "privacyUrl": "https://www.cxunicorn.com/privacy-policy.html",
+        "termsOfUseUrl": "https://www.cxunicorn.com/terms-of-use.html",
+        "mpnId": "6100626"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "360 Tour",
+        "full": "360 Tour"
+    },
+    "description": {
+        "short": "Application to add/edit/delete 360 tours.",
+        "full": "Application to add/edit/delete 360 tours."
+    },
+    "accentColor": "#FFFFFF",
+    "staticTabs": [
+        {
+            "entityId": "360tour",
+            "name": "360 Tour",
+            "contentUrl": "https://360tourempfe.azurewebsites.net",
+            "websiteUrl": "https://360tourempfe.azurewebsites.net",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "about",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "360tourempfe.azurewebsites.net"
+    ],
+    "webApplicationInfo": {
+        "id": "fd43611b-8fee-48ef-8a29-74f0d6ca9858",
+        "resource": "api://360tourempfe.azurewebsites.net/fd43611b-8fee-48ef-8a29-74f0d6ca9858"
+    }
+}

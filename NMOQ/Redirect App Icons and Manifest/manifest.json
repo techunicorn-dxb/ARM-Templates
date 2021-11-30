@@ -1,0 +1,55 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.11/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.11",
+    "version": "1.0.0",
+    "id": "a059f10f-c360-41d1-82d1-8e85791fbbb0",
+    "packageName": "com.techunicorn.livetour.redirect",
+    "developer": {
+        "name": "Tech Unicorn",
+        "websiteUrl": "https://www.cxunicorn.com/",
+        "privacyUrl": "https://www.cxunicorn.com/privacy-policy.html",
+        "termsOfUseUrl": "https://www.cxunicorn.com/terms-of-use.html",
+        "mpnId": "6100626"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "LiveTour Redirect",
+        "full": "LiveTour Redirect"
+    },
+    "description": {
+        "short": "Redirect to teams session",
+        "full": "Redirect to teams session"
+    },
+    "accentColor": "#FFFFFF",
+    "staticTabs": [
+        {
+            "entityId": "redirectapp",
+            "name": "Redirect",
+            "contentUrl": "https://livetourempfe.azurewebsites.net/redirect",
+            "websiteUrl": "https://livetourempfe.azurewebsites.net/redirect",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "about",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "livetourempfe.azurewebsites.net"
+    ],
+    "webApplicationInfo": {
+        "id": "c1890e03-2770-4502-9080-5923ea8af030",
+        "resource": "api://livetourempfe.azurewebsites.net/c1890e03-2770-4502-9080-5923ea8af030"
+    }
+}
