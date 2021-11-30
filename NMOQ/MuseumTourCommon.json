@@ -451,6 +451,16 @@
               "slotSetting": false
             },
             {
+              "name": "360TourEmpBaseUrl",
+              "value": "[concat('https://', variables('360TourEmpFrontEnd'), '.azurewebsites.net')]",
+              "slotSetting": false
+            },
+            {
+              "name": "LiveTourEmpBaseUrl",
+              "value": "[concat('https://', variables('LiveTourEmpFrontEnd'), '.azurewebsites.net')]",
+              "slotSetting": false
+            },
+            {
               "name": "SenderUpn",
               "value": "[parameters('SenderUpn')]",
               "slotSetting": false
@@ -635,6 +645,16 @@
             {
               "name": "ConnectionStrings__StorageAccountConnectionString__queue",
               "value": "[concat('https://', variables('storageAccountName'),'queue.core.windows.net/')]",
+              "slotSetting": false
+            },
+            {
+              "name": "360TourConBaseUrl",
+              "value": "[concat('https://', variables('360TourConFrontEnd'), '.azurewebsites.net')]",
+              "slotSetting": false
+            },
+            {
+              "name": "LiveTourConBaseUrl",
+              "value": "[concat('https://', variables('LiveTourConFrontEnd'), '.azurewebsites.net')]",
               "slotSetting": false
             },
             {
