@@ -1405,6 +1405,11 @@
         "siteConfig": {
           "appSettings": [
             {
+              "name": "TeamsAppId",
+              "value": "HAS TO BE SET FOR INSTALLATION FUNCTION",
+              "slotSetting": false
+            },
+            {
               "name": "EditFunctionUrl",
               "value": "[concat('https://', parameters('editFunctionAppName'), '.azurewebsites.net/api/EditFunction')]",
               "slotSetting": false
