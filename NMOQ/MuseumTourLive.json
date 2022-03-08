@@ -148,21 +148,6 @@
               "slotSetting": false
             },
             {
-              "name": "AzureAd:Domain",
-              "value": "[parameters('AzureAd:Domain')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ClientId",
-              "value": "[parameters('AzureAd:ClientId')]",
-              "slotSetting": false
-            },
-            {
-              "name": "AzureAd:ClientSecret",
-              "value": "[parameters('AzureAd:ClientSecret')]",
-              "slotSetting": false
-            },  
-            {
               "name": "RedirectAppManifestId",
               "value": "[parameters('RedirectAppManifestId')]",
               "slotSetting": false
@@ -203,6 +188,11 @@
               "slotSetting": false
             },
             {
+              "name": "AzureAd:Domain",
+              "value": "[parameters('AzureAd:Domain')]",
+              "slotSetting": false
+            },
+            {
               "name": "AzureAd:ClientId",
               "value": "[parameters('AzureAd:ClientId')]",
               "slotSetting": false
@@ -211,7 +201,7 @@
               "name": "AzureAd:ClientSecret",
               "value": "[parameters('AzureAd:ClientSecret')]",
               "slotSetting": false
-            },
+            },  
             {
               "name": "AzureAd:TenantId",
               "value": "[parameters('AzureAd:TenantId')]",
