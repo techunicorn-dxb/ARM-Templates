@@ -203,11 +203,6 @@
               "slotSetting": false
             },
             {
-              "name": "AzureAd:Domain",
-              "value": "[parameters('AzureAd:Domain')]",
-              "slotSetting": false
-            },
-            {
               "name": "AzureAd:ClientId",
               "value": "[parameters('AzureAd:ClientId')]",
               "slotSetting": false
